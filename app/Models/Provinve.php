@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Provinve extends Model
 {
-    protected $table = 'provinces';
+    protected $table = 'provinve';
     protected $primaryKey = 'ProvinceID';
     public $timestamps = false;
     use HasFactory;

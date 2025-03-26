@@ -56,7 +56,7 @@ class AuthController extends Controller
             'message' => 'Registration successful! Please check your email for verification.',
             'token' => $user->createToken('auth_token')->plainTextToken,
             'user' => $user,
-            'UserShip'=>$UserShip
+            // 'UserShip'=>$UserShip
 
         ], 201);
     } catch (ValidationException $e) {

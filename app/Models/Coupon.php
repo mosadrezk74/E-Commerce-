@@ -20,5 +20,13 @@ class Coupon extends Model
         return $this->belongsToMany(User::class, 'coupon_usages')
                     ->withPivot('OrderID');
     }
+
+    public function isValid()
+    {
+        return $this->IsActive && now()->between($this->ValidFrom, $this->ValidTo)
+         && $this->UsedCount < $this->MaxUsage;
+    }
+
+
     use HasFactory;
 }

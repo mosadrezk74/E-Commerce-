@@ -10,9 +10,7 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
-
-
-
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Front\CartController;
 
 Route::group(
@@ -40,6 +38,12 @@ Route::group(
         }
        );
 
+    Route::post('checkout', [FrontController::class, 'HandleCheckout'])->name('checkout.store');
+
+    Route::get('profile', [FrontController::class, 'edit_profile'])->name('profile.edit');
+
+    Route::put('profile/edit', [FrontController::class, 'update_profile'])->name('profile.update');
+
 
         Route::get('/search', [ProductController::class, 'search'])->name('search');
 
@@ -53,6 +57,9 @@ Route::group(
 
         Route::get('contact', [FrontController::class, 'contact'])
         ->name('contact');
+
+        Route::post('/apply-coupon', [FrontController::class, 'applyCoupon'])->name('apply_coupon');
+
 
         Route::get('admin', [AdminController::class, 'index'])->name('admin.index');
         Route::post('admin/auth', [AdminController::class, 'auth'])->name('admin.auth');
@@ -96,7 +103,6 @@ Route::group(
                 Route::get('/', [CustomerController::class, 'index'])->name('index');
                 Route::get('/show/{id}', [CustomerController::class, 'show'])->name('show');
                 Route::get('/delete/{id}', [CustomerController::class, 'delete'])->name('delete');
-
                 Route::get('/status/{status}/{id}', [CustomerController::class, 'status'])->name('status');
             });
 

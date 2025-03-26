@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Admin\Admin;
-use App\Models\Admin\Customer;
+use App\Models\User;
+
 use App\Models\Order;
+use App\Models\Admin\Admin;
 use Illuminate\Http\Request;
+use App\Models\Admin\Customer;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,9 +42,9 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $customers = Customer::count();
-        $activeCustomers = Customer::where('status', 1)->count();
-        $inactiveCustomers = Customer::where('status', 0)->count();
+        $customers = User::count();
+        $activeCustomers = User::where('IsActive', 1)->count();
+        $inactiveCustomers = User::where('IsActive', 0)->count();
         $totalAmount = Order::sum('TotalAmount');
 
         $placedOrders = Order::where('status', 1)->count();

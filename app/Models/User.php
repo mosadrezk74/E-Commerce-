@@ -6,16 +6,15 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'Users';
+    protected $table      = 'Users';
     protected $primaryKey = 'UserID';
-
 
     protected $fillable = [
         'FirstName',
@@ -24,12 +23,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'PasswordHash',
         'PhoneNumber',
         'IsActive',
-        'Address'
+        'Address',
     ];
 
     protected $hidden = [
         'PasswordHash',
-        'remember_token'
+        'remember_token',
     ];
 
     public function getEmailForVerification()
@@ -39,7 +38,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasVerifiedEmail()
     {
-        return !is_null($this->EmailVerifiedAt);
+        return ! is_null($this->EmailVerifiedAt);
     }
 
     public function markEmailAsVerified()
@@ -52,16 +51,20 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new \App\Notifications\VerifyEmailNotification);
     }
-    public function Ship(){
+    public function Ship()
+    {
         return $this->hasMany(Address::class, 'UserID');
     }
 
-     public function order(){
+    public function order()
+    {
         return $this->hasMany(Order::class, 'UserID');
     }
 
-    public function city(){
+    public function city()
+    {
         return $this->belongsTo(Provinve::class, 'City');
     }
+
 
 }
